@@ -1,20 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'react-native';
+
+import { Background } from './src/componentes/Background';
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Vida loka tbm ama</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Background>
+      <StatusBar
+
+      barStyle="light-content"
+      backgroundColor="transparent"
+      translucent
+      />
+     
+    </Background>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
