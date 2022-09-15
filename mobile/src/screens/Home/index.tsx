@@ -1,7 +1,7 @@
 import { View, Image, FlatList } from 'react-native';
 
 import { styles } from './styles';
-import logoImg from '../../assets/logo-nlw-esports.png';
+import  logoImg  from '../../assets/logo-nlw-esports.png';
 import { Heading } from '../../componentes/Heading';
 import { GameCard } from '../../componentes/GameCard';
 import { GAMES } from '../../utils/games';
