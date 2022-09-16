@@ -13,5 +13,5 @@ export function GameBanner(props: GameBannerProps) {
           <span className="text-zinc-300 text-sm block">{props.adsCount} anúncio(s)</span>
         </div>
     </a>
-  )
+  ) 
 }
