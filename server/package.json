@@ -12,8 +12,10 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^4.3.1",
+    "@react-navigation/native": "^6.0.13",
     "cors": "^2.8.5",
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "react-native-svg": "^13.2.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
