@@ -4,7 +4,7 @@ import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import axios from "axios";
 
 
-import { Check, GameController } from "phosphor-react";
+import { Check, GameController, CaretDown, CaretUp } from "phosphor-react";
 import { Input } from "./Form/input";
 import * as Select from '@radix-ui/react-select';
 import { useEffect, useState, FormEvent } from "react";
@@ -18,6 +18,7 @@ export function CreatAdModal() {
   const [games, setGames] = useState<Game[]>([])
   const [weekDays, setWeekDays] = useState<string[]>([])
   const [useVoiceChannel, setUseVoiceChannel] = useState(false)
+  const [gameSelected, setGameSelected] = useState<string>("")
 
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export function CreatAdModal() {
     const data = Object.fromEntries(formData)
 
     try {
-      await axios.post(`http://localhost:3333/games/${data.game}/ads`, {
+      await axios.post(`http://localhost:3333/games/${gameSelected}/ads`, {
         name: data.name,
         yearsPlaying: Number(data.yearsPlaying),
         discord: data.discord,
@@ -42,10 +43,10 @@ export function CreatAdModal() {
         hourEnd: data.hourEnd,
         useVoiceChannel: useVoiceChannel
       })
-      alert ('Anúncio criado com sucesso!')
+      alert('Anúncio criado com sucesso!')
     } catch (err) {
       console.log(err);
-      alert ('Erro ao criar o anúncio!')
+      alert('Erro ao criar o anúncio!')
 
     }
   }
@@ -63,7 +64,7 @@ export function CreatAdModal() {
         <form onSubmit={handleCreatAd} className="mt-8 flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <label htmlFor="game" className="font-semibold"> Qual o game?</label>
-            <select
+            {/* <select
               name="game"
               id="game"
               className="bg-zinc-900 py-3 px-4 rounded text-sm placeholder:text-zinc-500 appearence-none"
@@ -76,7 +77,56 @@ export function CreatAdModal() {
                 return <option key={game.id} value={game.id}>{game.title}</option>
 
               })}
-            </select>
+            </select> */}
+            <Select.Root onValueChange={setGameSelected}>
+              <Select.Trigger
+                id="game"
+                name="game"
+                aria-label="game"
+                className={`flex items-center justify-between bg-zinc-900 py-3 px-4 rounded text-sm border-2 border-transparent focus:border-violet-500 focus:outline-none ${gameSelected ? 'text-white' : 'text-zinc-500'} `}
+
+              >
+                <Select.Value placeholder="Selecione o game que deseja jogar!" />
+                <Select.Icon  >
+                  <CaretDown className="w-6 h-6 text-zinc-500 " />
+                </Select.Icon>
+
+              </Select.Trigger>
+              <Select.Portal>
+
+                <Select.Content className=" bg-zinc-900 rounded text-md overflow-hidden">
+                  <Select.ScrollUpButton className="flex items-center justify-center" >
+                    <CaretUp className="w-4 h-4 text-zinc-400 " />
+                  </Select.ScrollUpButton>
+                  <Select.Viewport className="py-2 px-1">
+                    {games.map(game => {
+                      return (
+                        <Select.Item
+                          key={game.id}
+                          value={game.id}
+                          className="flex items-center justify-between pr-3 ml-0 pl-1 bg-zinc-900 text-zinc-500 rounded hover:bg-violet-500 hover:text-white"
+                        >
+                          <div className="h-6 px-1 m-2 cursor-pointer ">
+                          <Select.ItemText >
+                            {game.title}
+                          </Select.ItemText>
+                          </div>
+                          <Select.ItemIndicator className="hover:text-white ">
+                            <Check className="w-4 h-4  " />
+                          </Select.ItemIndicator>
+                        </Select.Item>
+                      )
+
+                    })}
+
+                  </Select.Viewport>
+                  <Select.ScrollDownButton className="flex items-center justify-center text-zinc-100">
+                    <CaretDown className="w-4 h-4 " />
+
+                  </Select.ScrollDownButton>
+                </Select.Content>
+              </Select.Portal>
+            </Select.Root>
           </div>
 
           <div className="flex flex-col gap-2">
@@ -111,7 +161,9 @@ export function CreatAdModal() {
                 <ToggleGroup.Item
                   value="0"
                   title="Domingo"
-                  className={`w-8 h-8 rounded ${weekDays.includes('0') ? 'bg-violet-500' : ' bg-zinc-900'}`}
+                  className={`w-8 h-8 rounded border-2 
+                  border-transparent focus:border-violet-500
+                  focus:outline-none ${weekDays.includes('0') ? 'bg-violet-500' : ' bg-zinc-900'}`}
                 >
                   D
                 </ToggleGroup.Item>
@@ -119,7 +171,9 @@ export function CreatAdModal() {
                 <ToggleGroup.Item
                   value="1"
                   title="Segunda"
-                  className={`w-8 h-8 rounded ${weekDays.includes('1') ? 'bg-violet-500' : ' bg-zinc-900'}`}
+                  className={`w-8 h-8 rounded border-2 
+                  border-transparent focus:border-violet-500
+                  focus:outline-none ${weekDays.includes('1') ? 'bg-violet-500' : ' bg-zinc-900'}`}
                 >
                   S
                 </ToggleGroup.Item>
@@ -127,7 +181,9 @@ export function CreatAdModal() {
                 <ToggleGroup.Item
                   value="2"
                   title="Terça"
-                  className={`w-8 h-8 rounded ${weekDays.includes('2') ? 'bg-violet-500' : ' bg-zinc-900'}`}
+                  className={`w-8 h-8 rounded border-2 
+                  border-transparent focus:border-violet-500
+                  focus:outline-none ${weekDays.includes('2') ? 'bg-violet-500' : ' bg-zinc-900'}`}
                 >
                   T
                 </ToggleGroup.Item>
@@ -135,7 +191,9 @@ export function CreatAdModal() {
                 <ToggleGroup.Item
                   value="3"
                   title="Quarta"
-                  className={`w-8 h-8 rounded ${weekDays.includes('3') ? 'bg-violet-500' : ' bg-zinc-900'}`}
+                  className={`w-8 h-8 rounded border-2 
+                  border-transparent focus:border-violet-500
+                  focus:outline-none ${weekDays.includes('3') ? 'bg-violet-500' : ' bg-zinc-900'}`}
                 >
                   Q
                 </ToggleGroup.Item>
@@ -143,7 +201,9 @@ export function CreatAdModal() {
                 <ToggleGroup.Item
                   value="4"
                   title="Quinta"
-                  className={`w-8 h-8 rounded ${weekDays.includes('4') ? 'bg-violet-500' : ' bg-zinc-900'}`}
+                  className={`w-8 h-8 rounded border-2 
+                  border-transparent focus:border-violet-500
+                  focus:outline-none ${weekDays.includes('4') ? 'bg-violet-500' : ' bg-zinc-900'}`}
                 >
                   Q
                 </ToggleGroup.Item>
@@ -187,9 +247,11 @@ export function CreatAdModal() {
                   setUseVoiceChannel(false)
                 }
               }}
-              className="w-6 h-6 p-1 rounded bg-zinc-900" >
+              className="w-7 h-7 p-1 rounded bg-zinc-900 border-2 
+              border-transparent focus:border-violet-500
+              focus:outline-none  " >
               <Checkbox.Indicator>
-                <Check className="w-4 h-4 text-emerald-400" />
+                <Check className="w-4 h-4 text-violet-400" />
               </Checkbox.Indicator>
             </Checkbox.Root>
             Costumo me conectar ao chat de voz
