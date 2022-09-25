@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 72,
+    width: 90,
     height: 40,
   },
 
@@ -26,10 +26,18 @@ export const styles = StyleSheet.create({
   },
 
   cover: {
-    width: 311,
-    height:160,
+    
+    width: '100%',
+    height: 200,
     borderRadius: 8,
     marginTop: 32
+  },
+  coverContainer:{
+    width:'100%',
+    paddingHorizontal: 32,
+    marginTop: 32
+    
+    
   },
 
   containerList: {
